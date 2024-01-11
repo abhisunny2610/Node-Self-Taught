@@ -7998,5 +7998,21 @@
         "email": "ocardillorr@usgs.gov",
         "gender": "Male",
         "job_title": "Health Coach III"
+    },
+    {
+        "id": 1001,
+        "first_name": "Abhishek",
+        "last_name": "Singh",
+        "email": "abhi456@gmail.com",
+        "gender": "Male",
+        "job_title": "Web Dev"
+    },
+    {
+        "id": 1002,
+        "first_name": "John",
+        "last_name": "Singh",
+        "email": "jonny82@gmail.com",
+        "gender": "Male",
+        "job_title": "Web Dev"
     }
 ]
