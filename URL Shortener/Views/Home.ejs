@@ -8,7 +8,49 @@
 </head>
 
 <body>
-    <h1>Hey from home page that contain server side rendering.</h1>
+    <h1>URL Shortner</h1>
+
+    <form action="/url" method="POST">
+        <label for="url">Enter your orginal URL</label>
+        <input type="text" name="url" id="url" placeholder="www.example.com" />
+        <button type="submit">Generate</button>
+    </form>
+
+    <% if (locals.shortId) { %>
+        <p>URL Generated https://localhost:8000/url/ <%= shortId %>
+        </p>
+        <% } %>
+
+            <div>
+                <% if (locals.urls) { %>
+                    <table>
+                        <thead>
+                            <th>S. No</th>
+                            <th>ShortId</th>
+                            <th>Redirect</th>
+                            <th>Clicks</th>
+                        </thead>
+                        <tbody>
+                            <% urls.forEach((url, index)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= index + 1 %>
+                                    </td>
+                                    <td>
+                                        <%= url.shortId %>
+                                    </td>
+                                    <td>
+                                        <%= url.redirectURL %>
+                                    </td>
+                                    <td>
+                                        <%= url.visitHistory.length %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                    <% } %>
+            </div>
 
 </body>
 

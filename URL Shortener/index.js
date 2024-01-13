@@ -12,6 +12,8 @@ app.set('view engine', 'ejs')
 // set the view(templates) path
 app.set("views", path.resolve('./Views'))
 
+// middlewares
+app.use(express.urlencoded({extended: false}))
 
 // conntection
 const {connectMongoDb} = require('./connection')
