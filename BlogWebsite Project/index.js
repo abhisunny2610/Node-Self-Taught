@@ -1,16 +1,28 @@
 const express = require('express')
 const app = express()
 const path = require("path")
-const {connectDB} = require('./connect')
+const {connectMongoDb} = require('./connect')
 const router = express.Router()
 const PORT = 8000
+
+
+// routers
+const staticRouter = require('./router/staticRoute')
+const userRouter = require('./router/user')
+
+// middlewares
+app.use(express.urlencoded({extended: false}))
+
 
 // templates
 app.set('view engine', 'ejs')
 app.set("views", path.resolve('./views'))
 
 // connect db
-connectDB("mongodb://localhost:27017/blog-website")
+connectMongoDb()
 
+// routes
+app.use('/', staticRouter)
+app.use('/user', userRouter)
 
 app.listen(PORT, ()=> console.log("Server started at port: " + PORT))
