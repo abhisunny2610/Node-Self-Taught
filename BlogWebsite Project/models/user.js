@@ -43,12 +43,27 @@ userSchema.pre('save', function (next) {
     if (!user.isModified('password')) return;
 
     const salt = randomBytes(16).toString()
-    const hashedPassword = createHmac('sha256', salt).  update(user.password).digest('hex');
+    const hashedPassword = createHmac('sha256', salt).update(user.password).digest('hex');
 
     this.salt = salt;
     this.password = hashedPassword
 
     next()
+})
+
+userSchema.static("matchPassword", async function(email, password){
+    const user = await this.findOne({email})
+
+    if(!user) throw new Error("User not found")
+
+    const salt = randomBytes(16).toString()
+    const hashedPassword = user.password
+
+    const userProvideHash = createHmac('sha256', salt).update(password).digest('hex')
+
+    if (hashedPassword !== userProvideHash) throw new Error("Invalid email or password")
+
+    return user
 })
 
 const User = mongoose.model('user', userSchema)

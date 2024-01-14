@@ -17,11 +17,7 @@ router.post('/signup', async (req,res)=> {
 router.post("/signin", async (req, res)=> {
 
     const {email, password} = req.body
-    const user = User.findOne({email, password})
-    if(!user){
-        return res.render('/signin', {error:"Invalid email or password"})
-    }
-
+    const user = User.matchPassword(email, password)
     return res.render("home")
 })
 
