@@ -1,6 +1,5 @@
 const { getUser } = require("../Service/auth")
 
-
 const restrictToLoggedInUserOnly = async (req, res, next) => {
     const userId = req.cookies?.uid
 
@@ -15,4 +14,13 @@ const restrictToLoggedInUserOnly = async (req, res, next) => {
 
 }
 
-module.exports = restrictToLoggedInUserOnly
+const chechkAuth = async (req,res,next)=> {
+    const userId = req.cookies?.uid
+
+    const user = getUser(userId)
+
+    req.user = user;
+    next()
+}
+
+module.exports = {restrictToLoggedInUserOnly, chechkAuth}

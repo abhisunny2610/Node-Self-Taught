@@ -9,7 +9,7 @@ const handleSignUp = async (req, res) => {
         name, email, password
     })
 
-    return res.render("/")
+    return res.redirect("/")
 }
 
 const handleLogIn = async (req, res) => {

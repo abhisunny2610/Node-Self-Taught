@@ -14,7 +14,7 @@ const generateNewShortURL = async (req, res) => {
         visitHistory: []
     });
 
-    return res.redirect('Home', {shortId: shortID})
+    return res.render('Home', {shortId: shortID})
 }
 
 const getDataWithShortURL = async (req, res) => {
