@@ -1,7 +1,9 @@
 const express = require("express")
 const path = require('path')
+const cookieParser = require('cookie-parser')
 const app = express()
 const PORT = 8000
+const restrictToLoggedInUserOnly = require("./Middleware/auth")
 
 // Routers
 const urlRouter = require('./Routes/url')
@@ -17,7 +19,7 @@ app.set("views", path.resolve('./Views'))
 
 // middlewares
 app.use(express.urlencoded({ extended: false }))
-
+app.use(cookieParser())
 
 // conntection
 const { connectMongoDb } = require('./connection')
@@ -28,7 +30,7 @@ app.use(express.json())
 
 // routers
 app.use('/', staticRouter)
-app.use('/url', urlRouter)
+app.use('/url', restrictToLoggedInUserOnly, urlRouter)
 app.use("/user", userRouter)
 
 
