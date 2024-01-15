@@ -6,14 +6,18 @@ const router = express.Router()
 const PORT = 8000
 const cookieParser = require('cookie-parser')
 
+app.use(express.static(path.resolve('./uploads/blog')))
+
 // routers
 const staticRouter = require('./router/staticRoute')
 const userRouter = require('./router/user')
-const { checkForAuthenticationCookie } = require('./middleware/auth')
+const blogRouter = require('./router/blog')
 
 // middlewares
 app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
+const { checkForAuthenticationCookie } = require('./middleware/auth')
+const Blog = require('./models/blog')
 app.use(checkForAuthenticationCookie('token'))
 
 // templates
@@ -24,7 +28,13 @@ app.set("views", path.resolve('./views'))
 connectMongoDb()
 
 // routes
+app.get("/home", async (req, res)=> {
+    const blogs = await Blog.find({})
+    return res.render('home', {user: req.user, blogs:blogs})
+})
+
 app.use('/', staticRouter)
 app.use('/user', userRouter)
+app.use('/blog', blogRouter)
 
 app.listen(PORT, ()=> console.log("Server started at port: " + PORT))
