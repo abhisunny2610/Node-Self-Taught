@@ -10,9 +10,9 @@ router.get('/signin', (req,res) => {
     return res.render('signin')
 })
 
-// router.get("/home", async (req, res)=> {
-//     const blogs = await Blog.find({})
-//     return res.render('home', {user: req.user, blogs:blogs})
-// })
+router.get("/home", async (req, res)=> {
+    const blogs = await Blog.find({})
+    return res.render('home', {user: req.user, blogs:blogs})
+})
 
 module.exports = router;

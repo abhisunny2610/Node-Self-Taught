@@ -38,4 +38,9 @@ router.post('/',upload.single('coverImage') ,async(req, res)=> {
     return res.redirect('/home')
 })
 
+router.get('/:id', async (req, res)=> {
+    const blog = await Blog.findById(req.params.id)
+    return res.render('singleBlog', {user: req.user, blog: blog})
+})
+
 module.exports = router

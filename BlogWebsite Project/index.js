@@ -27,11 +27,7 @@ app.set("views", path.resolve('./views'))
 // connect db
 connectMongoDb()
 
-// routes
-app.get("/home", async (req, res)=> {
-    const blogs = await Blog.find({})
-    return res.render('home', {user: req.user, blogs:blogs})
-})
+
 
 app.use('/', staticRouter)
 app.use('/user', userRouter)

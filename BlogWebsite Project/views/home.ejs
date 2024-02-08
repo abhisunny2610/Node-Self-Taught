@@ -5,13 +5,16 @@
 </head>
 <body>
     <%- include('./partials/navbar') %>
-    <%- JSON.stringify(blogs)  %>
+    <!-- <%- JSON.stringify(blogs)  %> -->
 
     <% blogs.forEach(blog => { %>
         <div class="card" style="width: 18rem;">
-            <img src="<%= blog.coverImage  %>" class="card-img-top" alt="...">
+            <img src="<%= blog.coverImage  %>" class="card-img-top">
             <div class="card-body">
-              <p class="card-text"><%= blog.content %></p>
+              <p class="card-text"><%= blog.title %></p>
+            </div>
+            <div class="card-footer">
+              <a href="/blog/<%= blog._id %>">Read More...</a>
             </div>
           </div>
     <% }) %>
